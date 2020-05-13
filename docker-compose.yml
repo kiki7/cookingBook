@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  app:
+    container_name: cooking
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo:4.2.6
+    volumes:
+      - data:/data/menus
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=admin
+      - MONGO_DB=menus
+volumes:
+  data:
+    external: true
+

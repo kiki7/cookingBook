@@ -12,12 +12,10 @@ require('dotenv').config(); // get the environnement variables
 
 // Connection to mongoDB
 const options = {
-  server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-  replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+  server: { keepAlive: 300000, connectTimeoutMS: 3000 ,reconnectTries: 5 },
+  replset: { keepAlive: 300000, connectTimeoutMS: 30000 ,reconnectTries: 5 }
 };
-const mongoPath = ((process.env.DB_USER === undefined)
-|| (process.env.DB_PASS === undefined)
-|| (process.env.DB_SERVER === undefined)) ? 'mongodb://localhost:27017/menus' : `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`;
+const mongoPath = 'mongodb://localhost:27017/menus';
 mongoose.connect(mongoPath, options);
 
 // indicates if the connection failed because it's painful to diagnose

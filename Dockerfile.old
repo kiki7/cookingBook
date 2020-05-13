@@ -1,0 +1,11 @@
+FROM node:14.2-buster 
+
+COPY . src/
+WORKDIR /src
+
+RUN npm install && npm run build
+
+#Expose port and start application
+EXPOSE 8080
+CMD [ "npm", "run", "start" ]
+
